@@ -171,12 +171,12 @@ const ValidatorRow: React.FC<{
           alignItems: "center",
         }}
       >
-        {claimablePrice && (
+        {!!claimablePrice && (
           <BrandText style={[isMobile ? fontSemibold11 : fontSemibold13]}>
             {`$${claimablePrice.toFixed(2)}`}
           </BrandText>
         )}
-        {pendingRewards.length && (
+        {!!pendingRewards.length && (
           <PrimaryButtonOutline
             size="XS"
             style={{ paddingLeft: layout.spacing_x2 }}
@@ -189,7 +189,7 @@ const ValidatorRow: React.FC<{
         )}
       </View>
 
-      {actions && (
+      {!!actions && (
         <View
           style={{
             flex: TABLE_ROWS.actions.flex,
