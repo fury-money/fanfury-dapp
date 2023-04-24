@@ -33,7 +33,6 @@ import useSelectedWallet from "../../hooks/useSelectedWallet";
 import { getUserId, NetworkFeature } from "../../networks";
 import { selectNFTStorageAPI } from "../../store/slices/settings";
 import { prettyPrice } from "../../utils/coins";
-import { env } from "../../utils/env";
 import { generateIpfsKey } from "../../utils/ipfs";
 import { IMAGE_MIME_TYPES } from "../../utils/mime";
 import { ScreenFC, useAppNavigation } from "../../utils/navigation";
@@ -68,7 +67,10 @@ export const FeedNewArticleScreen: ScreenFC<"FeedNewArticle"> = () => {
   const { setToastSuccess, setToastError } = useFeedbacks();
   const navigation = useAppNavigation();
   const userId = getUserId(selectedNetworkId, wallet?.address);
-  const balances = useBalances(env.TERITORI_NETWORK_ID, wallet?.address);
+  const balances = useBalances(
+    process.env.TERITORI_NETWORK_ID,
+    wallet?.address
+  );
   const {
     control,
     setValue,
