@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 
+import { ChatScreen } from "../../screens/Chat/ChatScreen";
 import { ComingSoonScreen } from "../../screens/ComingSoon/ComingSoon";
 import { DAppStore } from "../../screens/DAppStore/HomeScreen";
 import { ToriPunks } from "../../screens/DAppStore/apps/toripunks/HomeScreen";
@@ -253,6 +254,11 @@ export const Navigator: React.FC = () => {
         name="DAppStore"
         component={DAppStore}
         options={{ header: () => null, title: screenTitle("dApp Store") }}
+      />
+      <Stack.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{ header: () => null, title: screenTitle("Chat") }}
       />
     </Stack.Navigator>
   );

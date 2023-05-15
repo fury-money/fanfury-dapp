@@ -58,6 +58,8 @@ export type RootStackParamList = {
 
   DAppStore: undefined;
   ToriPunks: { route: string };
+
+  Chat: undefined;
 };
 
 export type AppNavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -123,6 +125,8 @@ const navConfig: {
 
     // === DApps
     ToriPunks: "dapp/tori-punks/:route?",
+
+    Chat: "chat",
   },
 };
 
