@@ -3,6 +3,7 @@ module github.com/TERITORI/teritori-dapp
 go 1.18
 
 require (
+	berty.tech/gomobile-ipfs v1.10.1
 	berty.tech/weshnet v1.8.0
 	github.com/CosmWasm/wasmd v0.27.0
 	github.com/Khan/genqlient v0.5.0
@@ -13,7 +14,6 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/friendsofgo/errors v0.9.2
 	github.com/go-co-op/gocron v1.18.0
-	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/websocket v1.5.0
 	github.com/improbable-eng/grpc-web v0.14.1
 	github.com/jackc/pgx/v5 v5.1.1
@@ -32,6 +32,7 @@ require (
 	gorm.io/driver/postgres v1.4.4
 	gorm.io/driver/sqlite v1.3.6
 	gorm.io/gorm v1.23.8
+	moul.io/srand v1.6.1
 )
 
 require (
@@ -177,6 +178,7 @@ require (
 	github.com/google/tink/go v1.7.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/handlers v1.5.1 // indirect
+	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.0 // indirect
 	github.com/gsterjov/go-libsecret v0.0.0-20161001094733-a6f4afe4910c // indirect
@@ -369,6 +371,7 @@ require (
 	go.uber.org/dig v1.15.0 // indirect
 	go.uber.org/fx v1.18.2 // indirect
 	go4.org v0.0.0-20200411211856-f5505b9728dd // indirect
+	golang.org/x/mobile v0.0.0-20200801112145-973feb4309de // indirect
 	golang.org/x/mod v0.9.0 // indirect
 	golang.org/x/oauth2 v0.1.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
@@ -379,7 +382,6 @@ require (
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 	lukechampine.com/blake3 v1.1.7 // indirect
 	moul.io/openfiles v1.2.0 // indirect
-	moul.io/srand v1.6.1 // indirect
 	moul.io/u v1.27.0 // indirect
 	moul.io/zapfilter v1.7.0 // indirect
 	moul.io/zapring v1.3.3 // indirect
