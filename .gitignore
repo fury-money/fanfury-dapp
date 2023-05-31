@@ -82,3 +82,7 @@ desktop-build
 
 # codegen
 /.weshgen/
+
+
+# electron
+desktop/vendor
