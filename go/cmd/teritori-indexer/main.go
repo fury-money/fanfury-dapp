@@ -163,6 +163,8 @@ func main() {
 	if err := db.FirstOrCreate(&dbApp).Error; err != nil {
 		panic(errors.Wrap(err, "failed to get db app"))
 	}
+	initialHeight := dbApp.Height
+	startTime := time.Now()
 	lastProcessedHeight := dbApp.Height
 	lastProcessedHash := dbApp.TxHash
 	chunkedHeight := dbApp.ChunkedHeight
@@ -177,6 +179,19 @@ func main() {
 			ID:    q.ID,
 			Title: q.Title,
 		})
+	}
+
+	// stats
+	nextStatsPrint := time.Now()
+	tryPrintStats := func(chainHeight int64, lastProcessedBlock int64) {
+		if nextStatsPrint.Before(time.Now()) {
+			processedBlocks := lastProcessedBlock - initialHeight
+			elapsedTime := time.Since(startTime).Seconds()
+			bps := float64(processedBlocks) / elapsedTime
+			remainingBlocks := chainHeight - lastProcessedBlock
+			logger.Info("sync stats", zap.Duration("eta", time.Duration((float64(remainingBlocks)/bps)*1000000000)), zap.Float64("bps-total", bps), zap.Int64("remaining-blocks", remainingBlocks))
+			nextStatsPrint = time.Now().Add(10 * time.Second)
+		}
 	}
 
 	// find replay info to use
@@ -208,15 +223,14 @@ func main() {
 			chunkElems := int64(0)
 			page := 1
 
+			res, err := client.Status()
+			if err != nil {
+				panic(errors.Wrap(err, "failed to query status"))
+			}
+			lbh := res.SyncInfo.LatestBlockHeight
+
 			// Find batch end and strategy
 			if replayInfo.FinalHeight == -1 {
-				res, err := client.Status()
-				if err != nil {
-					panic(errors.Wrap(err, "failed to query status"))
-				}
-
-				lbh := res.SyncInfo.LatestBlockHeight
-
 				if chunkedHeight+*chunkSize > lbh-*tailSize {
 					strategy = "tail"
 				}
@@ -285,6 +299,8 @@ func main() {
 							}
 						}
 
+						tryPrintStats(lbh, tx.Height-1)
+
 						if err := handler.HandleTendermintResultTx(tx); err != nil {
 							return errors.Wrap(err, fmt.Sprintf(`failed to handle tx "%s"`, tx.Hash))
 						}
@@ -305,6 +321,7 @@ func main() {
 					chunkedHeight = lastProcessedHeight + 1
 				} else { // chunk strategy
 					chunkedHeight = batchEnd
+					tryPrintStats(lbh, chunkedHeight)
 				}
 
 				if err := dbtx.Model(&indexerdb.App{}).Where("id = ?", dbApp.ID).UpdateColumns(map[string]interface{}{
