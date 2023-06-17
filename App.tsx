@@ -10,7 +10,6 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { MetaMaskProvider } from "metamask-react";
 import React, { memo, useEffect, useCallback } from "react";
-
 import { useForm, FormProvider } from "react-hook-form";
 import { Platform, View } from "react-native";
 import { MenuProvider } from "react-native-popup-menu";
@@ -33,8 +32,10 @@ import { useSelectedNetworkId } from "./packages/hooks/useSelectedNetwork";
 import useSelectedWallet from "./packages/hooks/useSelectedWallet";
 import { setSelectedWalletId } from "./packages/store/slices/settings";
 import { store, useAppDispatch } from "./packages/store/store";
+import { handleAstilectronMessages } from "./packages/utils/astilectron";
 import { linking } from "./packages/utils/navigation";
 SplashScreen.preventAutoHideAsync();
+handleAstilectronMessages();
 
 const queryClient = new QueryClient();
 
