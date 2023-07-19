@@ -40,7 +40,7 @@ const NFTAPIKeyInput: React.FC = () => {
             },
           ]}
         >
-          app.pinata.cloud JWT key (For file upload)
+          app.pinata.cloud JWT key (For file hosting)
         </BrandText>
         <Pressable
           onPress={() =>
