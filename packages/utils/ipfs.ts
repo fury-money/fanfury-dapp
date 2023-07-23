@@ -84,7 +84,7 @@ export const uploadFileToIPFS = async (
 // Used to get a correct image URL for displaying or storing
 export const ipfsURLToHTTPURL = (ipfsURL: string | undefined) => {
   if (!ipfsURL) {
-    return;
+    return "";
   }
 
   if (
