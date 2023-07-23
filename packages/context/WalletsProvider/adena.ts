@@ -51,8 +51,8 @@ export const useAdena: () => UseAdenaResult = () => {
         setReady(true);
       }
     };
-    window.addEventListener("load", handleLoad);
-    return () => window.removeEventListener("load", handleLoad);
+    window?.addEventListener?.("load", handleLoad);
+    return () => window?.removeEventListener?.("load", handleLoad);
   }, []);
 
   useEffect(() => {
