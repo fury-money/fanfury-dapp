@@ -34,6 +34,7 @@ import { setSelectedWalletId } from "./packages/store/slices/settings";
 import { store, useAppDispatch } from "./packages/store/store";
 import { handleAstilectronMessages } from "./packages/utils/astilectron";
 import { linking } from "./packages/utils/navigation";
+import { weshClient } from "./packages/weshnet/client";
 SplashScreen.preventAutoHideAsync();
 handleAstilectronMessages();
 
@@ -43,7 +44,12 @@ const bootWesh = async () => {
   }
   try {
     const WeshnetModule = require("./modules/weshd");
-    WeshnetModule.hello();
+    const port = await WeshnetModule.getPort();
+    WeshnetModule.boot();
+
+    setTimeout(() => {
+      weshClient.createClient(port);
+    }, 15 * 1000);
   } catch (err) {
     console.log("bootWesh", err);
   }
@@ -65,7 +71,7 @@ export default function App() {
 
   const onLayoutRootView = useCallback(async () => {
     await SplashScreen.hideAsync();
-    bootWesh();
+    await bootWesh();
   }, []);
 
   // FIXME: Fonts don't load on electron
