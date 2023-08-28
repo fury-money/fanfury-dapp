@@ -1,6 +1,8 @@
+import { GnoJSONRPCProvider } from "@gnolang/gno-js-client";
 import { useScrollTo } from "@nandorojo/anchor";
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
+import { cloneDeep } from "lodash";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   ScrollView,
   StyleProp,
@@ -11,6 +13,11 @@ import {
   ViewStyle,
 } from "react-native";
 
+import { useFetchFeed } from "../../hooks/feed/useFetchFeed";
+import { useSelectedNetworkInfo } from "../../hooks/useSelectedNetwork";
+import useSelectedWallet from "../../hooks/useSelectedWallet";
+import { NetworkKind } from "../../networks";
+import { extractGnoNumber } from "../../utils/gno";
 import {
   gradientColorBlue,
   gradientColorDarkerBlue,
@@ -27,7 +34,8 @@ import { SVG } from "../SVG";
 import { PrimaryBadge } from "../badges/PrimaryBadge";
 import { TertiaryBadge } from "../badges/TertiaryBadge";
 import { GradientText } from "../gradientText";
-import { SpacerRow } from "../spacer";
+import { PostCategory } from "../socialFeed/NewsFeed/NewsFeed.type";
+import { SpacerColumn, SpacerRow } from "../spacer";
 
 export interface TabDefinition {
   name: string;
