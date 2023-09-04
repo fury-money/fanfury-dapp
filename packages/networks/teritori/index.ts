@@ -78,4 +78,6 @@ export const teritoriNetwork: CosmosNetworkInfo = {
   daoProposalSingleCodeId: 31,
   daoCw4GroupCodeId: 32,
   daoVotingCw4CodeId: 33,
+  musicplayerContractAddress:
+    "tori1z0089a6r77fgys558pcj9m8azwalg8g9hqc8cest4a4a9m9vgz3qhu2evr",
 };
