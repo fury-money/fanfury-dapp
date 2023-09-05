@@ -420,7 +420,6 @@ export const getKeplrSigningStargateClient = async (
     signer,
     {
       gasPrice,
-      // @ts-expect-error
       registry: pbTypesRegistry,
     }
   );
