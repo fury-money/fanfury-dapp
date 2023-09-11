@@ -408,6 +408,7 @@ const CardActions: React.FC<{
       </Pressable>
       {isDropdownOpen(dropdownRef) && (
         <View
+          ref={dropdownRef}
           style={{
             position: "absolute",
             zIndex: 2,
