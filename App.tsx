@@ -21,6 +21,7 @@ import { BrandText } from "./packages/components/BrandText";
 import { Navigator } from "./packages/components/navigation/Navigator";
 import { DropdownsContextProvider } from "./packages/context/DropdownsProvider";
 import { FeedbacksContextProvider } from "./packages/context/FeedbacksProvider";
+import { MessageContextProvider } from "./packages/context/MessageProvider";
 import { SearchBarContextProvider } from "./packages/context/SearchBarProvider";
 import { TNSMetaDataListContextProvider } from "./packages/context/TNSMetaDataListProvider";
 import { TNSContextProvider } from "./packages/context/TNSProvider";
@@ -81,6 +82,7 @@ export default function App() {
   }
 
   return (
+<<<<<<< HEAD
     <ErrorBoundary>
       <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
         <QueryClientProvider client={queryClient}>
@@ -97,10 +99,28 @@ export default function App() {
                             <TransactionModalsProvider>
                               <TNSContextProvider>
                                 <TNSMetaDataListContextProvider>
+=======
+    <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <QueryClientProvider client={queryClient}>
+        <FormProvider<DefaultForm> {...methods}>
+          <MetaMaskProvider>
+            <NavigationContainer linking={linking}>
+              <SafeAreaProvider>
+                <ReduxProvider store={store}>
+                  <FeedbacksContextProvider>
+                    <DropdownsContextProvider>
+                      <WalletsProvider>
+                        <SearchBarContextProvider>
+                          <TransactionModalsProvider>
+                            <TNSContextProvider>
+                              <TNSMetaDataListContextProvider>
+                                <MessageContextProvider>
+>>>>>>> ec2f854d (ui fixes)
                                   <MenuProvider>
                                     <StatusBar style="inverted" />
                                     <Navigator />
                                   </MenuProvider>
+<<<<<<< HEAD
                                 </TNSMetaDataListContextProvider>
                               </TNSContextProvider>
                             </TransactionModalsProvider>
@@ -116,6 +136,23 @@ export default function App() {
         </QueryClientProvider>
       </GestureHandlerRootView>
     </ErrorBoundary>
+=======
+                                </MessageContextProvider>
+                              </TNSMetaDataListContextProvider>
+                            </TNSContextProvider>
+                          </TransactionModalsProvider>
+                        </SearchBarContextProvider>
+                      </WalletsProvider>
+                    </DropdownsContextProvider>
+                  </FeedbacksContextProvider>
+                </ReduxProvider>
+              </SafeAreaProvider>
+            </NavigationContainer>
+          </MetaMaskProvider>
+        </FormProvider>
+      </QueryClientProvider>
+    </GestureHandlerRootView>
+>>>>>>> ec2f854d (ui fixes)
   );
 }
 
