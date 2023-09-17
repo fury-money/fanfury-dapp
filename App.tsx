@@ -11,7 +11,7 @@ import { StatusBar } from "expo-status-bar";
 import { MetaMaskProvider } from "metamask-react";
 import React, { memo, useEffect, useCallback } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { Platform } from "react-native";
+import { Platform, SafeAreaView, ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { MenuProvider } from "react-native-popup-menu";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -82,7 +82,6 @@ export default function App() {
   }
 
   return (
-<<<<<<< HEAD
     <ErrorBoundary>
       <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
         <QueryClientProvider client={queryClient}>
@@ -99,28 +98,12 @@ export default function App() {
                             <TransactionModalsProvider>
                               <TNSContextProvider>
                                 <TNSMetaDataListContextProvider>
-=======
-    <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <QueryClientProvider client={queryClient}>
-        <FormProvider<DefaultForm> {...methods}>
-          <MetaMaskProvider>
-            <NavigationContainer linking={linking}>
-              <SafeAreaProvider>
-                <ReduxProvider store={store}>
-                  <FeedbacksContextProvider>
-                    <DropdownsContextProvider>
-                      <WalletsProvider>
-                        <SearchBarContextProvider>
-                          <TransactionModalsProvider>
-                            <TNSContextProvider>
-                              <TNSMetaDataListContextProvider>
-                                <MessageContextProvider>
->>>>>>> ec2f854d (ui fixes)
-                                  <MenuProvider>
-                                    <StatusBar style="inverted" />
-                                    <Navigator />
-                                  </MenuProvider>
-<<<<<<< HEAD
+                                  <MessageContextProvider>
+                                    <MenuProvider>
+                                      <StatusBar style="inverted" />
+                                      <Navigator />
+                                    </MenuProvider>
+                                  </MessageContextProvider>
                                 </TNSMetaDataListContextProvider>
                               </TNSContextProvider>
                             </TransactionModalsProvider>
@@ -136,23 +119,6 @@ export default function App() {
         </QueryClientProvider>
       </GestureHandlerRootView>
     </ErrorBoundary>
-=======
-                                </MessageContextProvider>
-                              </TNSMetaDataListContextProvider>
-                            </TNSContextProvider>
-                          </TransactionModalsProvider>
-                        </SearchBarContextProvider>
-                      </WalletsProvider>
-                    </DropdownsContextProvider>
-                  </FeedbacksContextProvider>
-                </ReduxProvider>
-              </SafeAreaProvider>
-            </NavigationContainer>
-          </MetaMaskProvider>
-        </FormProvider>
-      </QueryClientProvider>
-    </GestureHandlerRootView>
->>>>>>> ec2f854d (ui fixes)
   );
 }
 
@@ -185,13 +151,15 @@ class ErrorBoundary extends React.Component {
       console.log("rendering error boundary");
       // You can render any custom fallback UI
       return (
-        <View style={{ backgroundColor: "black", height: "100%" }}>
-          <BrandText>{`${this.state.error}`}</BrandText>
-          {this.state.error !== this.state.catchError && (
-            <BrandText>{`${this.state.catchError}`}</BrandText>
-          )}
-          <BrandText>{this.state.catchInfo?.componentStack}</BrandText>
-        </View>
+        <SafeAreaView style={{ backgroundColor: "black", height: "100%" }}>
+          <ScrollView>
+            <BrandText>{`${this.state.error}`}</BrandText>
+            {this.state.error !== this.state.catchError && (
+              <BrandText>{`${this.state.catchError}`}</BrandText>
+            )}
+            <BrandText>{this.state.catchInfo?.componentStack}</BrandText>
+          </ScrollView>
+        </SafeAreaView>
       );
     }
 
