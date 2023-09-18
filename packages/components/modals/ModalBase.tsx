@@ -108,8 +108,7 @@ export const ModalBase: React.FC<ModalBaseProps> = ({
         ]}
         contentContainerStyle={[
           {
-            alignItems: "center",
-            justifyContent: "center",
+            padding: layout.spacing_x0_5,
             flex: 1,
             height: windowHeight,
           },
