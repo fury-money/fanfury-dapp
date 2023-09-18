@@ -258,11 +258,20 @@ networks.json: node_modules validate-networks
 unused-exports: node_modules
 	## TODO unexclude all paths except packages/api;packages/contracts-clients;packages/evm-contracts-clients
 	npx ts-unused-exports ./tsconfig.json --excludePathsFromReport="packages/api;packages/contracts-clients;packages/evm-contracts-clients;packages/components;packages/hooks;packages/context;packages/screens;packages/utils;packages/store;packages/networks;./App.tsx" --ignoreTestFiles
+
+
 .PHONY: build-ios
-build-ios:
+build-ios: check-weshframework
 	@npx expo prebuild --clean
-	@ruby ./cmd/add_frameworks.rb
 	@npx expo run:ios
+
+.PHONY: check-weshframework
+check-weshframework:
+	@if [ ! -e ./modules/wesh/ios/WeshFramework.xcframework ]; then \
+		echo "WeshFramework does not exist. Running a command to create it."; \
+		$(MAKE) build-weshframework; \
+	fi
+
 .PHONY: build-weshframework
 build-weshframework:
 	go env $(GOPATH)/bin
@@ -271,3 +280,4 @@ build-weshframework:
 	-o ./modules/wesh/ios/WeshFramework.xcframework \
 	-tags "fts5 sqlite sqlite_unlock_notify" -tags 'nowatchdog' -target ios -iosversion 13.0 \
 	./go/cmd/weshd-app/
+
