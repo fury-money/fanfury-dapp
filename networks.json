@@ -611,7 +611,9 @@
     "displayName": "Gno Teritori",
     "icon": "icons/networks/gno.svg",
     "features": [
-      "Organizations"
+      "Organizations",
+      "SocialFeed",
+      "UPP"
     ],
     "currencies": [
       {

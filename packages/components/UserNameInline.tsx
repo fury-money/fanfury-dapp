@@ -6,12 +6,12 @@ import FlexRow from "./FlexRow";
 import { OmniLink } from "./OmniLink";
 import { RoundedGradientImage } from "./images/RoundedGradientImage";
 import { useNSUserInfo } from "../hooks/useNSUserInfo";
-import { useSelectedNetworkId } from "../hooks/useSelectedNetwork";
+import { useSelectedNetworkInfo } from "../hooks/useSelectedNetwork";
 import useSelectedWallet from "../hooks/useSelectedWallet";
-import { getCosmosNetwork } from "../networks";
 import { fontSemibold14 } from "../utils/style/fonts";
 import { layout } from "../utils/style/layout";
 import { tinyAddress } from "../utils/text";
+import { nameServiceDefaultImage } from "../utils/tns";
 
 type PlayerNameProps = {
   userId: string;
@@ -24,8 +24,7 @@ export const UserNameInline: React.FC<PlayerNameProps> = ({
 }) => {
   const selectedWallet = useSelectedWallet();
   const userInfo = useNSUserInfo(selectedWallet?.userId);
-  const selectedNetworkId = useSelectedNetworkId();
-  const network = getCosmosNetwork(selectedNetworkId);
+  const selectedNetwork = useSelectedNetworkInfo();
   const name =
     userInfo?.metadata?.tokenId ||
     tinyAddress(selectedWallet?.address, 30) ||
@@ -40,7 +39,7 @@ export const UserNameInline: React.FC<PlayerNameProps> = ({
         <RoundedGradientImage
           size="XXS"
           sourceURI={userInfo?.metadata?.image}
-          fallbackURI={network?.nameServiceDefaultImage}
+          fallbackURI={nameServiceDefaultImage(selectedNetwork)}
         />
         <BrandText
           style={[{ marginLeft: layout.spacing_x1_5 }, fontSemibold14]}
