@@ -15,7 +15,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { MenuProvider } from "react-native-popup-menu";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider as ReduxProvider } from "react-redux";
-import { PersistGate } from "redux-persist/es/integration/react";
 
 import { BrandText } from "./packages/components/BrandText";
 import { Navigator } from "./packages/components/navigation/Navigator";
@@ -33,7 +32,7 @@ import {
 import { useSelectedNetworkId } from "./packages/hooks/useSelectedNetwork";
 import useSelectedWallet from "./packages/hooks/useSelectedWallet";
 import { setSelectedWalletId } from "./packages/store/slices/settings";
-import { persistor, store, useAppDispatch } from "./packages/store/store";
+import { store, useAppDispatch } from "./packages/store/store";
 import { handleAstilectronMessages } from "./packages/utils/astilectron";
 import { linking } from "./packages/utils/navigation";
 
@@ -68,30 +67,27 @@ export default function App() {
               <NavigationContainer linking={linking}>
                 <SafeAreaProvider>
                   <ReduxProvider store={store}>
-                    <PersistGate persistor={persistor}>
-                      <FeedbacksContextProvider>
-                        <DropdownsContextProvider>
-                          <WalletsProvider>
-                            <WalletSyncer />
-                            <SearchBarContextProvider>
-                              <TransactionModalsProvider>
-                                <TNSContextProvider>
-                                  <TNSMetaDataListContextProvider>
-                                    <MessageContextProvider>
-                                      <MenuProvider>
-                                        <StatusBar style="inverted" />
-
-                                        <Navigator />
-                                      </MenuProvider>
-                                    </MessageContextProvider>
-                                  </TNSMetaDataListContextProvider>
-                                </TNSContextProvider>
-                              </TransactionModalsProvider>
-                            </SearchBarContextProvider>
-                          </WalletsProvider>
-                        </DropdownsContextProvider>
-                      </FeedbacksContextProvider>
-                    </PersistGate>
+                    <FeedbacksContextProvider>
+                      <DropdownsContextProvider>
+                        <WalletsProvider>
+                          <WalletSyncer />
+                          <SearchBarContextProvider>
+                            <TransactionModalsProvider>
+                              <TNSContextProvider>
+                                <TNSMetaDataListContextProvider>
+                                  <MessageContextProvider>
+                                    <MenuProvider>
+                                      <StatusBar style="inverted" />
+                                      <Navigator />
+                                    </MenuProvider>
+                                  </MessageContextProvider>
+                                </TNSMetaDataListContextProvider>
+                              </TNSContextProvider>
+                            </TransactionModalsProvider>
+                          </SearchBarContextProvider>
+                        </WalletsProvider>
+                      </DropdownsContextProvider>
+                    </FeedbacksContextProvider>
                   </ReduxProvider>
                 </SafeAreaProvider>
               </NavigationContainer>
