@@ -6,16 +6,16 @@ import {
 } from "@expo-google-fonts/exo";
 import { NavigationContainer } from "@react-navigation/native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { MetaMaskProvider } from "metamask-react";
-import React, { memo, useEffect, useCallback } from "react";
+import React, { memo, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { Platform, SafeAreaView, ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { MenuProvider } from "react-native-popup-menu";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider as ReduxProvider } from "react-redux";
+import { PersistGate } from "redux-persist/es/integration/react";
 
 import { BrandText } from "./packages/components/BrandText";
 import { Navigator } from "./packages/components/navigation/Navigator";
@@ -33,29 +33,12 @@ import {
 import { useSelectedNetworkId } from "./packages/hooks/useSelectedNetwork";
 import useSelectedWallet from "./packages/hooks/useSelectedWallet";
 import { setSelectedWalletId } from "./packages/store/slices/settings";
-import { store, useAppDispatch } from "./packages/store/store";
+import { persistor, store, useAppDispatch } from "./packages/store/store";
 import { handleAstilectronMessages } from "./packages/utils/astilectron";
 import { linking } from "./packages/utils/navigation";
-import { weshClient } from "./packages/weshnet/client";
-SplashScreen.preventAutoHideAsync();
+
 handleAstilectronMessages();
 
-const bootWesh = async () => {
-  if (Platform.OS === "web") {
-    return;
-  }
-  try {
-    const WeshnetModule = require("./modules/weshd");
-    const port = await WeshnetModule.getPort();
-    WeshnetModule.boot();
-
-    setTimeout(() => {
-      weshClient.createClient(port);
-    }, 15 * 1000);
-  } catch (err) {
-    console.log("bootWesh", err);
-  }
-};
 const queryClient = new QueryClient();
 
 // it's here just to fix a TS2589 error
@@ -71,11 +54,6 @@ export default function App() {
     Exo_700Bold,
   });
 
-  const onLayoutRootView = useCallback(async () => {
-    await SplashScreen.hideAsync();
-    await bootWesh();
-  }, []);
-
   // FIXME: Fonts don't load on electron
   if (Platform.OS !== "web" && !fontsLoaded) {
     return null;
@@ -83,34 +61,37 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
         <QueryClientProvider client={queryClient}>
           <FormProvider<DefaultForm> {...methods}>
             <MetaMaskProvider>
               <NavigationContainer linking={linking}>
                 <SafeAreaProvider>
                   <ReduxProvider store={store}>
-                    <FeedbacksContextProvider>
-                      <DropdownsContextProvider>
-                        <WalletsProvider>
-                          <WalletSyncer />
-                          <SearchBarContextProvider>
-                            <TransactionModalsProvider>
-                              <TNSContextProvider>
-                                <TNSMetaDataListContextProvider>
-                                  <MessageContextProvider>
-                                    <MenuProvider>
-                                      <StatusBar style="inverted" />
-                                      <Navigator />
-                                    </MenuProvider>
-                                  </MessageContextProvider>
-                                </TNSMetaDataListContextProvider>
-                              </TNSContextProvider>
-                            </TransactionModalsProvider>
-                          </SearchBarContextProvider>
-                        </WalletsProvider>
-                      </DropdownsContextProvider>
-                    </FeedbacksContextProvider>
+                    <PersistGate persistor={persistor}>
+                      <FeedbacksContextProvider>
+                        <DropdownsContextProvider>
+                          <WalletsProvider>
+                            <WalletSyncer />
+                            <SearchBarContextProvider>
+                              <TransactionModalsProvider>
+                                <TNSContextProvider>
+                                  <TNSMetaDataListContextProvider>
+                                    <MessageContextProvider>
+                                      <MenuProvider>
+                                        <StatusBar style="inverted" />
+
+                                        <Navigator />
+                                      </MenuProvider>
+                                    </MessageContextProvider>
+                                  </TNSMetaDataListContextProvider>
+                                </TNSContextProvider>
+                              </TransactionModalsProvider>
+                            </SearchBarContextProvider>
+                          </WalletsProvider>
+                        </DropdownsContextProvider>
+                      </FeedbacksContextProvider>
+                    </PersistGate>
                   </ReduxProvider>
                 </SafeAreaProvider>
               </NavigationContainer>

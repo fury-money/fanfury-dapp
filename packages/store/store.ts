@@ -18,6 +18,7 @@ import { searchReducer } from "./slices/search";
 import { settingsReducer } from "./slices/settings";
 import { squadPresetsReducer } from "./slices/squadPresets";
 import { walletsReducer } from "./slices/wallets";
+import { bootWeshModule } from "../weshnet/client/services";
 
 const rootReducer = combineReducers({
   wallets: walletsReducer,
@@ -42,7 +43,9 @@ export const store = configureStore({
     getDefaultMiddleware({ serializableCheck: false }),
 });
 
-export const persistor = persistStore(store);
+export const persistor = persistStore(store, null, () => {
+  bootWeshModule();
+});
 
 export type RootState = ReturnType<typeof store.getState>;
 
