@@ -35,7 +35,7 @@ const rootReducer = combineReducers({
   notification: notificationReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig(), rootReducer);
 
 const createRehydrateRootReducer = (reducer) => (state, action) => {
   if (action.type === REHYDRATE) {
