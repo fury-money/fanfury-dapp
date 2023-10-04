@@ -28,7 +28,7 @@ import {
   ALBUM_CARD_WIDTH,
   AlbumCard,
 } from "../../MusicAlbum/components/AlbumCard";
-import { UploadAlbumModal } from "../../MusicAlbum/components/UploadAlbumModal";
+import { CreateAlbumModal } from "../../MusicAlbum/components/CreateAlbumModal";
 
 export const MusicMyLibraryContent: React.FC = () => {
   const { data: libraryIds } = useFetchLibraryIds();
@@ -199,7 +199,7 @@ export const MusicMyLibraryContent: React.FC = () => {
           ItemSeparatorComponent={() => <SpacerColumn size={2.5} />}
         />
       </View>
-      <UploadAlbumModal
+      <CreateAlbumModal
         isVisible={openUploadModal}
         onClose={() => {
           setOpenUploadModal(false);

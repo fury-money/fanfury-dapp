@@ -60,7 +60,7 @@ interface UploadAlbumModalProps {
 
 const UPLOAD_ALBUM_MODAL_WIDTH = 564;
 
-export const UploadAlbumModal: React.FC<UploadAlbumModalProps> = ({
+export const CreateAlbumModal: React.FC<UploadAlbumModalProps> = ({
   onClose,
   isVisible,
 }) => {

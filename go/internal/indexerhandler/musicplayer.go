@@ -20,13 +20,14 @@ type ExecCreateMusicAlbumMsg struct {
 func (h *Handler) handleExecuteCreateAlbum(e *Message, execMsg *wasmtypes.MsgExecuteContract) error {
 	var execCreateMusicAlbumMsg ExecCreateMusicAlbumMsg
 	if err := json.Unmarshal(execMsg.Msg, &execCreateMusicAlbumMsg); err != nil {
-		return errors.Wrap(err, "failed to unmarshal execute create album msg")
+		return errors.Wrap(err, "failed to unmarshal execute create_music_album msg")
 	}
 	createMusicAlbumMsg := &execCreateMusicAlbumMsg.CreateMusicAlbum
 
 	var metadataJSON map[string]interface{}
 	if err := json.Unmarshal([]byte(createMusicAlbumMsg.Metadata), &metadataJSON); err != nil {
 		return errors.Wrap(err, "failed to unmarshal metadata")
+		return nil
 	}
 
 	createdAt, err := e.GetBlockTime()

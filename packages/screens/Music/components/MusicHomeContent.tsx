@@ -21,7 +21,7 @@ import {
   ALBUM_CARD_WIDTH,
   AlbumCard,
 } from "../../MusicAlbum/components/AlbumCard";
-import { UploadAlbumModal } from "../../MusicAlbum/components/UploadAlbumModal";
+import { CreateAlbumModal } from "../../MusicAlbum/components/CreateAlbumModal";
 interface MusicPlayerProps {
   req: GetAllAlbumListRequest;
 }
@@ -104,7 +104,7 @@ export const MusicHomeContent: React.FC<MusicPlayerProps> = ({ req }) => {
           ItemSeparatorComponent={() => <SpacerColumn size={2.5} />}
         />
       </View>
-      <UploadAlbumModal
+      <CreateAlbumModal
         isVisible={openUploadModal}
         onClose={() => {
           setOpenUploadModal(false);
