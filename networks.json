@@ -7,7 +7,9 @@
     "icon": "icons/networks/teritori.svg",
     "features": [
       "NFTMarketplace",
-      "Organizations"
+      "Organizations",
+      "SocialFeed",
+      "UPP"
     ],
     "walletUrlForStaking": "https://app.teritori.com/staking",
     "currencies": [
@@ -81,8 +83,7 @@
     "daoPreProposeSingleCodeId": 28,
     "daoProposalSingleCodeId": 31,
     "daoCw4GroupCodeId": 32,
-    "daoVotingCw4CodeId": 33,
-    "videoContractAddress": ""
+    "daoVotingCw4CodeId": 33
   },
   {
     "id": "cosmos-hub",
@@ -133,7 +134,9 @@
     "icon": "icons/networks/teritori.svg",
     "features": [
       "NFTMarketplace",
-      "Organizations"
+      "Organizations",
+      "SocialFeed",
+      "UPP"
     ],
     "currencies": [
       {
@@ -569,7 +572,9 @@
     "displayName": "Gno Dev",
     "icon": "icons/networks/gno.svg",
     "features": [
-      "Organizations"
+      "Organizations",
+      "SocialFeed",
+      "UPP"
     ],
     "currencies": [
       {
