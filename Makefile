@@ -18,7 +18,7 @@ RIOTER_FOOTER_PACKAGE=rioter-footer-nft
 VAULT_REPO=teritori-vault
 VAULT_PACKAGE=teritori-nft-vault
 
-MUSIC_PLAYER_PACKAGE=teritori-music-player
+MUSIC_PLAYER_PACKAGE=teritori-musicplayer
 
 CONTRACTS_CLIENTS_DIR=packages/contracts-clients
 
