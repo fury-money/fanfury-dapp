@@ -9,7 +9,6 @@ import (
 )
 
 type CreateMusicAlbumMsg struct {
-	Identifier string `json:"identifier"`
 	Metadata   string `json:"metadata"`
 }
 
@@ -36,7 +35,6 @@ func (h *Handler) handleExecuteCreateAlbum(e *Message, execMsg *wasmtypes.MsgExe
 	}
 
 	musicAlbum := indexerdb.MusicAlbum{
-		Identifier: createMusicAlbumMsg.Identifier,
 		Metadata:   metadataJSON,
 		CreatedBy:  h.config.Network.UserID(execMsg.Sender),
 		CreatedAt:  createdAt.Unix(),
