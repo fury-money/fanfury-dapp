@@ -1,4 +1,4 @@
-import { TeritoriMusicPlayerClient } from "../contracts-clients/teritori-musicplayer/TeritoriMusicPlayer.client";
+import { TeritoriMusicPlayerClient } from "../contracts-clients/teritori-music-player/TeritoriMusicPlayer.client";
 import {
   getKeplrSigningCosmWasmClient,
   mustGetCosmosNetwork,
