@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { DraxList, DraxProvider } from "react-native-drax";
 import { useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 
 import Add from "../../../../assets/music-player/add-primary.svg";
 import DefaultAlbumImage from "../../../../assets/music-player/album.png";
@@ -189,7 +188,6 @@ export const CreateAlbumModal: React.FC<UploadAlbumModalProps> = ({
       const res = await client.createMusicAlbum(
         {
           metadata: JSON.stringify(metadata),
-          identifier: uuidv4(),
         },
         defaultSocialFeedFee,
         ""
