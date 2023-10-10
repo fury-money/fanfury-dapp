@@ -21,6 +21,13 @@ func (h *Handler) handleExecuteCreateAlbum(e *Message, execMsg *wasmtypes.MsgExe
 	if err := json.Unmarshal(execMsg.Msg, &execCreateMusicAlbumMsg); err != nil {
 		return errors.Wrap(err, "failed to unmarshal execute create_music_album msg")
 	}
+
+  musicAlbumIdentifiers := e.Events["wasm.music_album_identifier"]
+  if len(musicAlbumIdentifiers) == 0 {
+    return errors.New("no music album identifier")
+  }
+  identifier := musicAlbumIdentifiers[0]
+
 	createMusicAlbumMsg := &execCreateMusicAlbumMsg.CreateMusicAlbum
 
 	var metadataJSON map[string]interface{}
@@ -35,6 +42,7 @@ func (h *Handler) handleExecuteCreateAlbum(e *Message, execMsg *wasmtypes.MsgExe
 	}
 
 	musicAlbum := indexerdb.MusicAlbum{
+	  Identifier: identifier,
 		Metadata:   metadataJSON,
 		CreatedBy:  h.config.Network.UserID(execMsg.Sender),
 		CreatedAt:  createdAt.Unix(),
