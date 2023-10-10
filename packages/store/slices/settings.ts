@@ -12,6 +12,7 @@ interface Settings {
   alreadyVisited: boolean;
   areTestnetsEnabled: boolean;
   sideBarExpanded: boolean;
+  isLightTheme: boolean;
 }
 
 const initialState: Settings = {
@@ -24,6 +25,7 @@ const initialState: Settings = {
   alreadyVisited: false,
   areTestnetsEnabled: false,
   sideBarExpanded: true,
+  isLightTheme: false,
 };
 
 export const selectSelectedNetworkId = (state: RootState) =>
@@ -49,6 +51,9 @@ export const selectSidebarExpanded = (state: RootState) =>
 
 export const selectNFTStorageAPI = (state: RootState) =>
   state.settings.NFTStorageAPI;
+
+export const selectIsLightTheme = (state: RootState) =>
+  state.settings.isLightTheme;
 
 const settingsSlice = createSlice({
   name: "settings",
@@ -78,6 +83,9 @@ const settingsSlice = createSlice({
     setNFTStorageAPI: (state, action: PayloadAction<string>) => {
       state.NFTStorageAPI = action.payload;
     },
+    setIsLightTheme: (state, action: PayloadAction<boolean>) => {
+      state.isLightTheme = action.payload;
+    },
   },
 });
 
@@ -90,6 +98,7 @@ export const {
   setAreTestnetsEnabled,
   setSidebarExpanded,
   setNFTStorageAPI,
+  setIsLightTheme,
 } = settingsSlice.actions;
 
 export const settingsReducer = settingsSlice.reducer;
